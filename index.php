@@ -74,7 +74,7 @@ function attendee_list_to_html( $attendees ){
             }
         }
     }else{
-        $attendee_list_html .= '<div class="eb_attendee_list_item">You can be the first to register for this event!</div>';
+        $attendee_list_html .= '<div class="eb_attendee_list_item_none"></div>';
     }   
     return $attendee_list_html . "</div>\n";
 }
@@ -102,7 +102,7 @@ function page(){
 </div>
 
 
-<a id="next" href="index.php?p=<?= page(); ?>">next page</a>
+<a id="next" href="index.php?p=<?= page(); ?>"></a>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="jquery.infinitescroll.min.js"></script>
@@ -115,10 +115,12 @@ $('#content').infinitescroll({
     dataType        : 'html',
     maxPage         : 100,
     donetext        : "",
+    currPage         :0,
     //prefill         : false,
 //      path: ["http://nuvique/infinite-scroll/test/index", ".html"]
     loading: {
-        msgText: "Loading more attendees..."
+        msgText     : "Loading more attendees...",
+        finishedMsg : ""
     },
     path: function(index) {
         //window.console && console.log('path: ',this);
@@ -137,7 +139,17 @@ $('#content').infinitescroll({
 
       //window.console && console.log('context: ',this);
       //window.console && console.log('returned: ', newElements);
-      $(this).append(newElements);
+      //console.log(newElements[0].innerHTML);
+      
+      if(newElements[0].innerHTML.indexOf("_none") != -1)
+      {
+        //console.log(data);
+        data.maxPage = 1;
+        data.state.isDone = true;
+      }  
+      else{    
+        $(this).append(newElements);
+      }
     
 });
 
