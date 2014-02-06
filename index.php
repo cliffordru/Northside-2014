@@ -114,10 +114,12 @@ $('#content').infinitescroll({
     debug           : false,
     dataType        : 'html',
     maxPage         : 100,
-    loadingText     : "Loading more attendees...",
     donetext        : "",
     //prefill         : false,
 //      path: ["http://nuvique/infinite-scroll/test/index", ".html"]
+    loading: {
+        msgText: "Loading more attendees..."
+    },
     path: function(index) {
         //window.console && console.log('path: ',this);
         return "index.php?p=" + index;
