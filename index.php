@@ -20,7 +20,7 @@ define("PREMIUM_REGULAR_BADGE", 22361753);
 
 try{
 // For more information about the functions that are available through the Eventbrite API, see http://developer.eventbrite.com/doc/
-    $attendees = $eb_client->event_list_attendees( array('id'=>'9789407381') );
+    $attendees = $eb_client->event_list_attendees( array('id'=>'9789407381' , 'count' => 2, 'page' => page()) );
 } catch ( Exception $e ) {
     // Be sure to plan for potential error cases
     // so that your application can respond appropriately
@@ -79,7 +79,7 @@ function attendee_list_to_html( $attendees ){
     return $attendee_list_html . "</div>\n";
 }
 
-function paged(){
+function page(){
     return ($_GET["p"] > 1 ? $_GET["p"] + 1 : 2);
 }
 
@@ -102,7 +102,7 @@ function paged(){
 </div>
 
 
-<a id="next" href="index.php?p=<?= paged(); ?>">next page</a>
+<a id="next" href="index.php?p=<?= page(); ?>">next page</a>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="jquery.infinitescroll.min.js"></script>
@@ -114,6 +114,8 @@ $('#content').infinitescroll({
     debug           : false,
     dataType        : 'html',
     maxPage         : 100,
+    loadingText     : "Loading more attendees...",
+    donetext        : "",
     //prefill         : false,
 //      path: ["http://nuvique/infinite-scroll/test/index", ".html"]
     path: function(index) {
@@ -133,7 +135,6 @@ $('#content').infinitescroll({
 
       //window.console && console.log('context: ',this);
       //window.console && console.log('returned: ', newElements);
-
       $(this).append(newElements);
     
 });
