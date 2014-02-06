@@ -13,6 +13,7 @@ define("INNOVATION_EARLY_BIRD_BADGE", 22361343);
 define("INNOVATION_REGULAR_BADGE", 22361345);
 define("PREMIUM_EARLY_BIRD_BADGE", 22361347);
 define("PREMIUM_REGULAR_BADGE", 22361753);
+define("NO_MORE_ATTENDEES", "eb_attendee_list_item_none");
 /*
     Advance Innovation Badges
     Advance Premium Badges
@@ -74,7 +75,7 @@ function attendee_list_to_html( $attendees ){
             }
         }
     }else{
-        $attendee_list_html .= '<div class="eb_attendee_list_item_none"></div>';
+        $attendee_list_html .= '<div class="'.NO_MORE_ATTENDEES.'"></div>';
     }   
     return $attendee_list_html . "</div>\n";
 }
@@ -141,7 +142,7 @@ $('#content').infinitescroll({
       //window.console && console.log('returned: ', newElements);
       //console.log(newElements[0].innerHTML);
       
-      if(newElements[0].innerHTML.indexOf("_none") != -1)
+      if(newElements[0].innerHTML.indexOf("<?= NO_MORE_ATTENDEES ?>") != -1)
       {
         //console.log(data);
         data.maxPage = 1;
