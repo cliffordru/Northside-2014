@@ -30,31 +30,13 @@ try{
     $attendees = array();
 }
 
-/*
-
-<div class="img" align="center">
-    <div class="desc">
-        <span class="textdesc"><span class="names"><strong>Mike Conklin</strong></span> <a
-            href="http://twiteraccount.com">@twiter</a> Editor-in-Chief <em>The L Magazine</em>
-        </span>
-    </div>
-</div>
-*/
-
 function attendee_to_html( $attendee ){
     if($attendee->first_name){ 
-        return "<div class='img' align='center'>
-                    <div class='desc'>
-                        <span class='textdesc'><span class='names'><strong>"
-                        .$attendee->first_name." ".$attendee->last_name."</strong></span>
-                        <a href='http://twiteraccount.com'>".$attendee->answers[1]->answer->answer_text."</a>"
-                        .$attendee->job_title." <em>".$attendee->company."</em>
-                        </span>
-                    </div>
-                </div>";
-        /*.$attendee->answers[2]->answer->answer_text.' ' 
+        return "<div class='eb_attendee_list_item'>"
+        .$attendee->first_name.' '.$attendee->last_name.' '
+        .$attendee->answers[2]->answer->answer_text.' ' 
         
-        ."</div>\n";*/
+        ."</div>\n";
     }else{
         return '';
     }
@@ -104,61 +86,19 @@ function page(){
 
 //mark-up your attendee list
 // render in html - ?>
-<style type="text/css"><!--
-.textdesc{ 
-    text-align:center;
-    font-weight:lighter;
-} 
-div.img { 
-    margin:5px;
-    padding:20px 10px 10px 10px;
-    border-bottom:1px solid;
-    border-bottom-color:#CCCCCC;
-    height:170px;
-    width:130px;
-    float:left;
-} 
-div.img a:hover img {
-    border:0px;
+<style type="text/css">
+.eb_attendee_list_item{
+  padding-bottom: 8px;
 }
-
-div.desc {
-    text-align:center;
-    font-weight:normal;
-    width:150px;
-    margin:0px;
-} 
-div.intro img {
-    border:0px !important;
-    margin:0px !important;
-    padding:0px 0px 30px 0px !important;
+.eb_attendee_list{
+  margin-left: 20px;
 }
---></style>
+</style>
 
-
-<div class="intro">
-    <img class="aligncenter size-full wp-image-2232" alt="intro_image" src="http://northsidefestival.com/wp-content/uploads/2014/06/intro01.jpg"
-        width="850" height="420" />
-</div>
-<strong>Northside Innovation is filled with great programming and great networking opportunities.
-            To see who else has bought a badge see our conference attendees below:</strong>
-To purchase CONFERENCE BADGES, <a href="http://conference_badge">click here.</a>
-To purchase PREMIUM BADGES, <a href="http://premium_badge">click here.</a>
-<hr />
-<center><strong>2014 CONFERENCE ATTENDEES</strong></center>
-<hr />
-<!--<div class="img" align="center">
-    <div class="desc">
-        <span class="textdesc"><span class="names"><strong>Mike Conklin</strong></span> <a
-            href="http://twiteraccount.com">@twiter</a> Editor-in-Chief <em>The L Magazine</em>
-        </span>
-    </div>
-</div>-->
+<h1>Event Attendee List:</h1>
+<div id="content">
 
 <?= attendee_list_to_html( $attendees ); ?>
-
-
-<div id="content">
 
 </div>
 
@@ -171,7 +111,7 @@ To purchase PREMIUM BADGES, <a href="http://premium_badge">click here.</a>
 $('#content').infinitescroll({
     navSelector     : "#next:last",
     nextSelector    : "a#next:last",
-    itemSelector    : ".img",
+    itemSelector    : ".eb_attendee_list",
     debug           : false,
     dataType        : 'html',
     maxPage         : 100,
