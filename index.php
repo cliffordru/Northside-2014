@@ -14,6 +14,7 @@ define("INNOVATION_REGULAR_BADGE", 22361345);
 define("PREMIUM_EARLY_BIRD_BADGE", 22361347);
 define("PREMIUM_REGULAR_BADGE", 22361753);
 define("NO_MORE_ATTENDEES", "eb_attendee_list_item_none");
+define("API_COUNT",2);
 /*
     Advance Innovation Badges
     Advance Premium Badges
@@ -21,7 +22,7 @@ define("NO_MORE_ATTENDEES", "eb_attendee_list_item_none");
 
 try{
 // For more information about the functions that are available through the Eventbrite API, see http://developer.eventbrite.com/doc/
-    $attendees = $eb_client->event_list_attendees( array('id'=>'9789407381' , 'count' => 2, 'page' => page()) );
+    $attendees = $eb_client->event_list_attendees( array('id'=>'9789407381' , 'count' => API_COUNT, 'page' => page()) );
 } catch ( Exception $e ) {
     // Be sure to plan for potential error cases
     // so that your application can respond appropriately
@@ -30,34 +31,43 @@ try{
     $attendees = array();
 }
 
-/*
-
-<div class="img" align="center">
-    <div class="desc">
-        <span class="textdesc"><span class="names"><strong>Mike Conklin</strong></span> <a
-            href="http://twiteraccount.com">@twiter</a> Editor-in-Chief <em>The L Magazine</em>
-        </span>
-    </div>
-</div>
-*/
-
 function attendee_to_html( $attendee ){
     if($attendee->first_name){ 
         return "<div class='img' align='center'>
                     <div class='desc'>
                         <span class='textdesc'><span class='names'><strong>"
-                        .$attendee->first_name." ".$attendee->last_name."</strong></span>
-                        <a href='http://twiteraccount.com'>".$attendee->answers[1]->answer->answer_text."</a>"
+                            .$attendee->first_name." ".$attendee->last_name."</strong></span>
+                        <a href='https://twitter.com/".twitter_user_strip_at($attendee->answers[1]->answer->answer_text)
+                            ."' target='_blank'>".twitter_user_prefix_at($attendee->answers[1]->answer->answer_text)."</a> "
                         .$attendee->job_title." <em>".$attendee->company."</em>
                         </span>
                     </div>
                 </div>";
-        /*.$attendee->answers[2]->answer->answer_text.' ' 
-        
-        ."</div>\n";*/
-    }else{
-        return '';
     }
+    return '';
+}
+
+/**
+* strips @ from @user
+*/
+function twitter_user_strip_at($user)
+{
+    return ltrim($user,'@');    
+}
+
+/**
+* prefix @ to user
+*/
+function twitter_user_prefix_at($user)
+{
+    if(IsNullOrEmptyString($user)){
+        return $user;
+    }
+    return '@'.twitter_user_strip_at($user);
+}
+
+function IsNullOrEmptyString($question){
+    return (!isset($question) || trim($question)==='');
 }
 
 function sort_attendees_by_created_date( $x, $y ){
@@ -67,7 +77,7 @@ function sort_attendees_by_created_date( $x, $y ){
     return ( $x->attendee->created > $y->attendee->created ) ? -1 : 1;
 }
 
-function valid_badge( $attendee )
+function is_valid_badge( $attendee )
 {
     if( ($attendee->ticket_id) 
         && ($attendee->ticket_id == INNOVATION_EARLY_BIRD_BADGE
@@ -88,7 +98,7 @@ function attendee_list_to_html( $attendees ){
         usort( $attendees->attendees, "sort_attendees_by_created_date");
         //render the attendee as HTML
         foreach( $attendees->attendees as $attendee ){
-            if( valid_badge( $attendee->attendee ) ){
+            if( is_valid_badge( $attendee->attendee ) ){
                 $attendee_list_html .= attendee_to_html( $attendee->attendee );
             }
         }
@@ -135,33 +145,25 @@ div.intro img {
 }
 --></style>
 
-
 <div class="intro">
-    <img class="aligncenter size-full wp-image-2232" alt="intro_image" src="http://northsidefestival.com/wp-content/uploads/2014/06/intro01.jpg"
-        width="850" height="420" />
+    <img class="aligncenter size-full wp-image-2232" alt="intro_image" 
+        src="http://northsidefestival.com/wp-content/uploads/2014/06/intro01.jpg" width="850" height="420" />
 </div>
-<strong>Northside Innovation is filled with great programming and great networking opportunities.
-            To see who else has bought a badge see our conference attendees below:</strong>
-To purchase CONFERENCE BADGES, <a href="http://conference_badge">click here.</a>
-To purchase PREMIUM BADGES, <a href="http://premium_badge">click here.</a>
+<strong>
+    Northside Innovation is filled with great programming and great networking opportunities.
+    To see who else has bought a badge see our conference attendees below:
+</strong>
+To purchase CONFERENCE BADGES, 
+    <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
+To purchase PREMIUM BADGES, 
+    <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
 <hr />
 <center><strong>2014 CONFERENCE ATTENDEES</strong></center>
 <hr />
-<!--<div class="img" align="center">
-    <div class="desc">
-        <span class="textdesc"><span class="names"><strong>Mike Conklin</strong></span> <a
-            href="http://twiteraccount.com">@twiter</a> Editor-in-Chief <em>The L Magazine</em>
-        </span>
-    </div>
-</div>-->
-
-<?= attendee_list_to_html( $attendees ); ?>
-
 
 <div id="content">
-
+    <?= attendee_list_to_html( $attendees ); ?>
 </div>
-
 
 <a id="next" href="index.php?p=<?= page(); ?>"></a>
 
@@ -197,11 +199,6 @@ $('#content').infinitescroll({
     // $(this).prepend(newElements);
     //
     //END OF PREPENDING
-
-      //window.console && console.log('context: ',this);
-      //window.console && console.log('returned: ', newElements);
-      //console.log(newElements[0].innerHTML);
-      
       if(newElements[0].innerHTML.indexOf("<?= NO_MORE_ATTENDEES ?>") != -1)
       {
         //console.log(data);
