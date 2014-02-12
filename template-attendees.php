@@ -40,14 +40,39 @@ try{
     $attendees = array();
 }
 
-function attendee_to_html( $attendee ){
+function is_twitter_handle_question( $attendee, $question_index ){
+    return $attendee->answers[$question_index]->answer->question == "Twitter handle";
+}
+
+function question_answer( $attendee, $question_index ){
+    return $attendee->answers[$question_index]->answer->answer_text;
+}
+
+function attendee_twitter_handle( $attendee )
+{
+    $twitter_handle = "";
+    $length = count($attendee->answers);
+
+    for ($i = 0; $i < $length; $i++) {
+        if(is_twitter_handle_question($attendee, $i)){
+            $twitter_handle = question_answer($attendee, $i);
+            break;
+        }
+    }
+    
+    return $twitter_handle;
+}
+
+function attendee_to_html( $attendee ){    
     if($attendee->first_name){ 
+        $twitter_handle = attendee_twitter_handle($attendee);
+        
         return "<div class='img' align='center'>
                     <div class='desc'>
                         <span class='textdesc'><span class='names'><strong>"
                             .$attendee->first_name." ".$attendee->last_name."</strong></span>
-                        <a href='https://twitter.com/".twitter_user_strip_at($attendee->answers[1]->answer->answer_text)
-                            ."' target='_blank'>".twitter_user_prefix_at($attendee->answers[1]->answer->answer_text)."</a> "
+                        <a href='https://twitter.com/".twitter_user_strip_at($twitter_handle)
+                            ."' target='_blank'>".twitter_user_prefix_at($twitter_handle)."</a> "
                         .$attendee->job_title." <em>".$attendee->company."</em>
                         </span>
                     </div>
