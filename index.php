@@ -30,41 +30,7 @@ try{
     //var_dump($e);
     $attendees = array();
 }
-/*
-function is_twitter_handle_question( $attendee, $question_index ){
-    return $attendee->answers[$question_index]->answer->question == "Twitter handle";
-}
 
-function question_answer( $attendee, $question_index ){
-    return $attendee->answers[$question_index]->answer->answer_text;
-}
-
-function attendee_to_html( $attendee ){    
-    if($attendee->first_name){ 
-        $twitter_handle = "";
-        if(is_twitter_handle_question($attendee, 0)){
-            $twitter_handle = question_answer($attendee, 0);
-        }
-        elseif(is_twitter_handle_question($attendee, 1)){
-            $twitter_handle = question_answer($attendee, 1);
-        }
-        elseif(is_twitter_handle_question($attendee, 2)){
-            $twitter_handle = question_answer($attendee, 2);
-        }
-        return "<div class='img' align='center'>
-                    <div class='desc'>
-                        <span class='textdesc'><span class='names'><strong>"
-                            .$attendee->first_name." ".$attendee->last_name."</strong></span>
-                        <a href='https://twitter.com/".twitter_user_strip_at($twitter_handle)
-                            ."' target='_blank'>".twitter_user_prefix_at($twitter_handle)."</a> "
-                        .$attendee->job_title." <em>".$attendee->company."</em>
-                        </span>
-                    </div>
-                </div>";
-    }
-    return '';
-}
-*/
 function is_twitter_handle_question( $attendee, $question_index ){
     return $attendee->answers[$question_index]->answer->question == "Twitter handle";
 }
@@ -94,11 +60,11 @@ function attendee_to_html( $attendee ){
         
         return "<div class='img' align='center'>
                     <div class='desc'>
-                        <span class='textdesc'><span class='names'><strong>"
-                            .$attendee->first_name." ".$attendee->last_name."</strong></span>
+                        <span class='textdesc'><strong>"
+                            .$attendee->first_name." ".$attendee->last_name."</strong></span><span class='subdesc'><br>
                         <a href='https://twitter.com/".twitter_user_strip_at($twitter_handle)
-                            ."' target='_blank'>".twitter_user_prefix_at($twitter_handle)."</a> "
-                        .$attendee->job_title." <em>".$attendee->company."</em>
+                            ."' target='_blank'>".twitter_user_prefix_at($twitter_handle)."</a><br> "
+                        .$attendee->job_title."<br><em>".$attendee->company."</em><br>
                         </span>
                     </div>
                 </div>";
@@ -171,30 +137,28 @@ function page(){
     return ($_GET["p"] > 1 ? $_GET["p"] + 1 : 2);
 }
 
-//mark-up your attendee list
 // render in html - ?>
 <style type="text/css"><!--
 .textdesc{ 
-    text-align:center;
-    font-weight:lighter;
+    font-size:18px !important;
 } 
 div.img { 
     margin:5px;
     padding:20px 10px 10px 10px;
-    border-bottom:1px solid;
+    border-bottom:2px solid;
     border-bottom-color:#CCCCCC;
-    height:170px;
-    width:130px;
+    height:150px;
+    width:180px;
     float:left;
 } 
 div.img a:hover img {
     border:0px;
-}
+} 
 
 div.desc {
     text-align:center;
     font-weight:normal;
-    width:150px;
+    width:180px;
     margin:0px;
 } 
 div.intro img {
@@ -202,25 +166,24 @@ div.intro img {
     margin:0px !important;
     padding:0px 0px 30px 0px !important;
 }
+div.section{
+    border-bottom:1px solid;
+    border-top:1px solid;
+}
+
+/* Added for infinite scroll */
+#colophon {
+    padding-top: 300px;
+}
 --></style>
 
-<div class="intro">
-    <img class="aligncenter size-full wp-image-2232" alt="intro_image" 
-        src="http://northsidefestival.com/wp-content/uploads/2014/06/intro01.jpg" width="850" height="420" />
-</div>
-<strong>
-    Northside Innovation is filled with great programming and great networking opportunities.
-    To see who else has bought a badge see our conference attendees below:
-</strong>
-To purchase CONFERENCE BADGES, 
-    <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
-To purchase PREMIUM BADGES, 
-    <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
-<hr />
-<center><strong>2014 CONFERENCE ATTENDEES</strong></center>
-<hr />
+<div class="intro"><img src="http://northsidefestival.com/wp-content/uploads/2014/06/intro_04.jpg" alt="intro_04" width="850" height="420" class="aligncenter size-full wp-image-2242" /></div>
+NORTHSIDE INNOVATION is a massive annual conference, trade show and celebration of our community. It’s a space to talk to each other and the rest of the world. See who’s coming below!
 
-<div id="content">
+To purchase CONFERENCE BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a> To purchase PREMIUM BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
+<div class="section">2014 CONFERENCE ATTENDEES</div>
+
+<div id="content_list">
     <?= attendee_list_to_html( $attendees ); ?>
 </div>
 
@@ -229,7 +192,7 @@ To purchase PREMIUM BADGES,
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="jquery.infinitescroll.min.js"></script>
 <script>
-$('#content').infinitescroll({
+$('#content_list').infinitescroll({
     navSelector     : "#next:last",
     nextSelector    : "a#next:last",
     itemSelector    : ".img",
