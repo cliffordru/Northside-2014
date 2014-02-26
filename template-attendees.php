@@ -21,7 +21,7 @@ define("INNOVATION_REGULAR_BADGE", 22361345);
 define("PREMIUM_EARLY_BIRD_BADGE", 22361347);
 define("PREMIUM_REGULAR_BADGE", 22361753);
 define("NO_MORE_ATTENDEES", "eb_attendee_list_item_none");
-define("API_COUNT",4);
+define("API_COUNT",20);
 /*
     Advance Innovation Badges
     Advance Premium Badges
@@ -177,48 +177,25 @@ function page(){
                     <!-- custom page begin -->
 
                         <style type="text/css"><!--
-                        .textdesc{ 
-                            font-size:18px !important;
-                        } 
-                        div.img { 
-                            margin:5px;
-                            padding:20px 10px 10px 10px;
-                            border-bottom:2px solid;
-                            border-bottom-color:#CCCCCC;
-                            height:150px;
-                            width:180px;
-                            float:left;
-                        } 
-                        div.img a:hover img {
-                            border:0px;
-                        } 
-
-                        div.desc {
-                            text-align:center;
-                            font-weight:normal;
-                            width:180px;
-                            margin:0px;
-                        } 
-                        div.intro img {
-                            border:0px !important;
-                            margin:0px !important;
-                            padding:0px 0px 30px 0px !important;
-                        }
-                        div.section{
-                            border-bottom:1px solid;
-                            border-top:1px solid;
-                        }
+                        
+.textdesc{  font-size:18px !important; }  div.img {  margin:5px; padding:20px 10px 10px 10px; border-bottom:2px solid; border-bottom-color:#CCCCCC; height:150px; width:180px; float:left; }  div.img a:hover img { border:0px; } div.desc { text-align:center; font-weight:normal; width:180px; margin:0px; }  div.intro { font-size:18px !important; } div.intro img { border:0px !important; margin:0px !important; padding:0px 0px 30px 0px !important; } div.section{ border-bottom:1px solid; border-top:1px solid; }
 
                         /* Added for infinite scroll */
                         #colophon {
                             padding-top: 300px;
                         }
                         --></style>
-                        <div class="intro"><img src="http://northsidefestival.com/wp-content/uploads/2014/06/intro_04.jpg" alt="intro_04" width="850" height="420" class="aligncenter size-full wp-image-2242"></div>
-<p>NORTHSIDE INNOVATION is a massive annual conference, trade show and celebration of our community. It’s a space to talk to each other and the rest of the world. See who’s coming below!</p>
-<p>To purchase CONFERENCE BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a> To purchase PREMIUM BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a></p>
+                        <div class="intro">
+                            <img src="http://northsidefestival.com/wp-content/uploads/2014/06/intro_04.jpg" alt="intro_04" width="850" height="420" class="aligncenter size-full wp-image-2242">
+<br >                            
+<strong>
+    Our NYC technologists, hackers, thinkers and creators have become the most exciting innovators in the world. NORTHSIDE INNOVATION is the annual conference &amp; trade show that showcases the best of this community as it continues to grow and revolutionize society!
+    <br />
+To purchase CONFERENCE BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a> To purchase PREMIUM BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
+</strong>
+<p></p>
 <div class="section">2014 CONFERENCE ATTENDEES</div>                        
-
+</div>
                         <div id="content_list">
                             <?= attendee_list_to_html( $attendees ); ?>
                         </div>
