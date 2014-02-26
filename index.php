@@ -151,8 +151,8 @@ function page(){
                             <img src="http://northsidefestival.com/wp-content/uploads/2014/06/intro_04.jpg" alt="intro_04" width="850" height="420" class="aligncenter size-full wp-image-2242">
 <br >                            
 <strong>
-    Our NYC technologists, hackers, thinkers and creators have become the most exciting innovators in the world. NORTHSIDE INNOVATION is the annual conference &amp; trade show that showcases the best of this community as it continues to grow and revolutionize society!
-    <br />
+    Our NYC technologists, hackers, thinkers and creators have become the most exciting innovators in the world. NORTHSIDE INNOVATION is the annual conference &amp; trade show that showcases the best of this community as it continues to grow!
+    <br /><br />
 To purchase CONFERENCE BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a> To purchase PREMIUM BADGES, <a href="http://www.eventbrite.com/e/northside-festival-tickets-9789407381">click here.</a>
 </strong>
 <p></p>
