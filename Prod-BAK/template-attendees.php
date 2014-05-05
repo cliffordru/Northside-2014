@@ -21,7 +21,7 @@ define("INNOVATION_REGULAR_BADGE", 22361345);
 define("PREMIUM_EARLY_BIRD_BADGE", 22361347);
 define("PREMIUM_REGULAR_BADGE", 22361753);
 define("NO_MORE_ATTENDEES", "eb_attendee_list_item_none");
-define("API_COUNT",80);
+define("API_COUNT",20);
 /*
     Advance Innovation Badges
     Advance Premium Badges
@@ -154,7 +154,29 @@ function page(){
 
 <? get_header(); ?>
 
+<div class="socialmediabuttons">
+<a href="http://www.facebook.com/northsidefest" class="button_facebook" target="blank">
+</a>
+<a href="http://www.twitter.com/northsidefest" class="button_twitter" target="blank">
+</a>
+<a href="http://instagram.com/thelmagazine" class="button_instagram" target="blank">
+</a>
+</div>
 
+<div style="left: 297px; margin-bottom: 0; margin-top: 0; padding-bottom: 0; position: relative; top: -160px; width: 175px;" class="fblike"><iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FNorthsideFest&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
+
+<div style="left: -113px; margin-bottom: 0; margin-top: 0; padding-bottom: 0; position: relative; top: -202px; width: 175px;">
+        <script type="text/javascript" src="https://app.e2ma.net/app2/audience/tts_signup/1722826/06df53bc187a603ea0b692fc2675edbe/1402919/?v=a"> 
+    </script>
+    <div id="load_check" class="signup_form_message" >
+        This form needs Javascript to display, which your browser doesn't support. <a href="https://app.e2ma.net/app2/audience/signup/1722826/1402919/?v=a">    Sign up here</a> instead 
+    </div>
+    <script type="text/javascript">signupFormObj.drawForm();</script>
+
+    <div style="margin-left:685px; width:250px; font-size:10px; margin-top: -10px;">
+        SIGN UP FOR NORTHSIDE FESTIVAL UPDATES
+    </div>
+</div>
     <div id="primary"> 
         <div id="content" role="main">
 
